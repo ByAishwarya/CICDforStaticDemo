@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Quick Form</h2>
+
+<input type="text" id="name" placeholder="Enter name"><br><br>
+<input type="email" id="email" placeholder="Enter email"><br><br>
+<button onclick="sendData()">Submit</button>
+
+<script>
+function sendData() {
+    const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value
+    };
+    
+    fetch('https://q36jpfzgk4.execute-api.eu-west-1.amazonaws.com/default/AishAPIlambda', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+        alert('Data sent to AWS! Check logs.');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to send');
+    });
+}
+</script>
+
+</body>
+</html>
